@@ -48,21 +48,17 @@ Sigue estos pasos para levantar el entorno en tu máquina local:
         cd ruta/a/la/carpeta/proyecto-k8s-manifests
     
     * IMPORTANTE primero crear el Namespace dedicado:
-        kubectl apply -f namespace.yaml
+        kubectl apply -f manifiestos/namespace.yaml
       
     * Aplica el resto de los manifiestos para crear el PV, PVC, Deployment y Service dentro del namespace `web-estatica`:
 
         # Aplica el PV (es cluster-wide, no necesita namespace)
-        kubectl apply -f pv.yaml
+        kubectl apply -f manifiestos/pv.yam
 
         # Aplica el resto en el namespace correcto
-        kubectl apply -f pvc.yaml -n web-estatica
-        kubectl apply -f deployment.yaml -n web-estatica
-        kubectl apply -f service.yaml -n web-estatica
-
-        # Alternativa (si todos los archivos YAML excepto namespace.yaml y pv.yaml tienen 'namespace: web-estatica' adentro):
-        # kubectl apply -f . -n web-estatica
-       
+        kubectl apply -f manifiestos/pvc.yaml -n web-estatica
+        kubectl apply -f manifiestos/deployment.yaml -n web-estatica
+        kubectl apply -f manifiestos/service.yaml -n web-estatica     
 
 5.  **Verificar el Despliegue:**
     * Espera unos segundos y comprueba que el pod esté corriendo en el namespace `web-estatica`:
@@ -94,12 +90,12 @@ Para detener y eliminar los recursos creados:
 2.  **Eliminar los recursos de Kubernetes:**
      
      # Borra los objetos del namespace web-estatica
-    kubectl delete -f deployment.yaml -n web-estatica
-    kubectl delete -f service.yaml -n web-estatica
-    kubectl delete -f pvc.yaml -n web-estatica
+    kubectl delete -f manifiestos/deployment.yaml -n web-estatica
+    kubectl delete -f manifiestos/service.yaml -n web-estatica
+    kubectl delete -f manifiestos/pvc.yaml -n web-estatica
      # Borra el PV (cluster-wide) y el Namespace
-    kubectl delete -f pv.yaml
-    kubectl delete -f namespace.yaml
+    kubectl delete -f manifiestos/pv.yaml
+    kubectl delete -f manifiestos/namespace.yaml
     ```
 3.  **Detener el montaje:** Cierra la terminal donde estaba corriendo `minikube mount`.
 4.  **Detener Minikube:**
