@@ -1,0 +1,5 @@
+# namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: web-estatica # Elige un nombre para tu namespace (ej: web-estatica, mi-app, etc.)

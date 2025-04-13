@@ -1,0 +1,30 @@
+# deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: static-website-deployment # Nombre del Deployment
+  namespace: web-estatica
+  labels:
+    app: static-website # Etiqueta para identificar los recursos de esta app
+spec:
+  replicas: 1 # Número de pods a ejecutar
+  selector:
+    matchLabels:
+      app: static-website # Selecciona los pods con esta etiqueta
+  template: # Plantilla para crear los pods
+    metadata:
+      labels:
+        app: static-website # Etiqueta que se aplicará a los pods
+    spec:
+      containers:
+      - name: nginx-container # Nombre del contenedor dentro del pod
+        image: nginx:alpine # Imagen Docker a usar (Nginx ligero)
+        ports:
+        - containerPort: 80 # Puerto en el que escucha Nginx dentro del contenedor
+        volumeMounts: # Define cómo montar el volumen dentro del contenedor
+        - name: web-content-storage # Nombre del montaje (debe coincidir con 'volumes' abajo)
+          mountPath: /usr/share/nginx/html # Ruta DENTRO del contenedor donde se monta el volumen (ruta estándar de Nginx)
+      volumes: # Define los volúmenes disponibles para el pod
+      - name: web-content-storage # Nombre del volumen (debe coincidir con 'volumeMounts' arriba)
+        persistentVolumeClaim:
+          claimName: web-content-pvc # Usa el PVC creado anteriormente

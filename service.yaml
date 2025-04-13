@@ -1,0 +1,15 @@
+# service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: static-website-service # Nombre del Service
+  namespace: web-estatica
+spec:
+  type: NodePort # Tipo de servicio adecuado para Minikube para acceso local
+  selector:
+    app: static-website # Selecciona los pods gestionados por el Deployment con esta etiqueta
+  ports:
+    - protocol: TCP
+      port: 80 # Puerto EN EL CLUSTER para este servicio
+      targetPort: 80 # Puerto en los PODS al que se dirige el tráfico (el containerPort de Nginx)
+      # nodePort: (Opcional) Puedes especificar un puerto entre 30000-32767 o dejar que K8s elija uno.

@@ -1,0 +1,13 @@
+# pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: web-content-pvc # Nombre del Persistent Volume Claim
+  namespace: web-estatica
+spec:
+  storageClassName: manual # Debe coincidir con el storageClassName del PV
+  accessModes:
+    - ReadWriteOnce # Debe coincidir con un accessMode del PV
+  resources:
+    requests:
+      storage: 100Mi # Cuánto almacenamiento solicita (debe ser menor o igual a la capacidad del PV)
