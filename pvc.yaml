@@ -5,9 +5,9 @@ metadata:
   name: web-content-pvc # Nombre del Persistent Volume Claim
   namespace: web-estatica
 spec:
-  storageClassName: manual # Debe coincidir con el storageClassName del PV
+  storageClassName: manual 
   accessModes:
-    - ReadWriteOnce # Debe coincidir con un accessMode del PV
+    - ReadWriteOnce 
   resources:
     requests:
-      storage: 100Mi # Cuánto almacenamiento solicita (debe ser menor o igual a la capacidad del PV)
+      storage: 100Mi # Cuánto almacenamiento solicita
